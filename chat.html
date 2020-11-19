@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="chat-style.css">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" data-trid="4">
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+</head>
+<body>
+
+	<div class="chat">
+		<form action="" method="POST">
+			<button class="chat__close">&times;</button>
+			<span class="chat__title">Welcome to Support</span>
+			<div class="chat__inner">
+				<span class="chat__text">Contact us</span>
+				<label>
+					<span class="chat__input__name">E-mail</span>
+					<input class="chat__input" type="text" placeholder="your@mail.com" required>
+				</label>
+				<label>
+					<span class="chat__input__name">Issue</span>
+					<select class="chat__input__select" required>
+						<option value="" disabled="" selected="" hidden="">Choose from list</option>
+						<option value="a">Connection Issue</option>
+					    <option value="b">Billing and Pricing Issue</option>
+					    <option value="c">General Support</option>
+					    <option value="d">Other (write below)</option>
+					</select>
+				</label>
+				<label class="chat__input__specify">
+					<span class="chat__input__name">Specify your problem</span>
+					<input class="chat__input" type="text" placeholder="My issue is strange because..." required>
+				</label>
+				<label>
+					<span class="chat__input__name">Message</span>
+					<textarea class="chat__input chat__input-textarea" type="text" placeholder="Describe your problem" required></textarea>
+				</label>
+				<div class="chat__capcha">
+					<form action="?" method="POST">
+				      <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+				      <br/>
+				      <!-- <input type="submit" value="Submit"> -->
+				    </form>
+				</div>
+				<button class="chat__submit">Submit</button>
+			</div>
+		</form>
+	</div>
+
+	<button class="chat__button">Open Ticket</button>
+
+<script>
+	const supportOpenButton = document.querySelector(".chat__button");
+	const supportCloseButton = document.querySelector(".chat__close");
+	const supportBox = document.querySelector(".chat");
+
+	supportOpenButton.addEventListener("click", supportOpen, false);
+	supportCloseButton.addEventListener("click", supportClose, false);
+
+	function supportOpen(){
+		supportBox.style.display = "flex";
+		supportOpenButton.classList.add("active");
+	}
+	function supportClose(){
+		supportBox.style.display = "none";
+		supportOpenButton.classList.remove("active");
+	}
+
+
+
+
+
+	// if Other is not selected: disable input below
+	document.querySelector(".chat__input__select").addEventListener("change", ()=>{
+		if(document.querySelector(".chat__input__select").value == "d") {
+    		document.querySelector(".chat__input__specify").style.height = "auto";
+    		document.querySelector(".chat__input__specify").style.opacity = "1";
+    		document.querySelector(".chat__input__specify").style.marginTop = "20px";
+		}else{
+			document.querySelector(".chat__input__specify").style.height = "0";
+    		document.querySelector(".chat__input__specify").style.opacity = "0";
+    		document.querySelector(".chat__input__specify").style.marginTop = "0";
+		}
+	}, false);
+</script>
+</body>
+</html>
