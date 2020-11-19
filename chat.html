@@ -18,11 +18,11 @@
 				<span class="chat__text">Contact us</span>
 				<label>
 					<span class="chat__input__name">E-mail</span>
-					<input class="chat__input" type="email" placeholder="your@mail.com" required>
+					<input class="chat__input" type="email" placeholder="your@mail.com" required id="supportchat-email">
 				</label>
 				<label>
 					<span class="chat__input__name">Issue</span>
-					<select class="chat__input__select" required>
+					<select class="chat__input__select" required id="supportchat-select">
 						<option value="" disabled="" selected="" hidden="">Choose from list</option>
 						<option value="a">Connection Issue</option>
 					    <option value="b">Billing and Pricing Issue</option>
@@ -32,11 +32,11 @@
 				</label>
 				<label class="chat__input__specify">
 					<span class="chat__input__name">Specify your problem</span>
-					<input class="chat__input" type="text" placeholder="My issue is strange because..." required>
+					<input class="chat__input" type="text" placeholder="My issue is strange because..." required id="supportchat-specify">
 				</label>
 				<label>
 					<span class="chat__input__name">Message</span>
-					<textarea class="chat__input chat__input-textarea" type="text" placeholder="Describe your problem" required></textarea>
+					<textarea class="chat__input chat__input-textarea" type="text" placeholder="Describe your problem" required id="supportchat-message"></textarea>
 				</label>
 				<div class="chat__capcha">
 					<form action="?" method="POST">
@@ -45,7 +45,7 @@
 				      <!-- <input type="submit" value="Submit"> -->
 				    </form>
 				</div>
-				<button class="chat__submit">Submit</button>
+				<button class="chat__submit" id="supportchat-submit">Submit</button>
 			</div>
 		</form>
 	</div>
@@ -70,7 +70,71 @@
 	}
 
 
+	// Frontend validation
+	const supportEmail = document.getElementById("supportchat-email");
+	const supportSelect = document.getElementById("supportchat-select");
+	const supportVerify = document.getElementById("supportchat-specify");
+	const supportMessage = document.getElementById("supportchat-message");
+	const supportSubmit = document.getElementById("supportchat-submit");
+	let supportVerifyis = false;
+	let validation = true;
 
+	supportSubmit.addEventListener("click", (e)=>{
+		e.preventDefault();
+
+		clearErrors();
+
+		validation = true;
+
+		if(!supportEmail.value || supportEmail.value.trim().length === 0){
+			makeError(0,"Fill this field");
+			validation = false;
+		} else if(!/\S+@\S+\.\S+/.test(supportEmail.value)){
+			makeError(0,"Enter the correct email!");
+			validation = false;
+		}
+		if(!supportSelect.value){
+			makeError(1,"Fill this field");
+			validation = false;
+		}
+		if(supportVerifyis){
+			if(supportVerify.value || supportVerify.value.trim().length === 0){
+				makeError(2,"Fill this field");
+				validation = false;
+			}
+		}
+		if(!supportMessage.value || supportMessage.value.trim().length === 0){
+			makeError(3,"Fill this field");
+			validation = false;
+		}
+
+		if(validation){
+			document.querySelector(".chat__inner").style.transform = "scale(0)";
+			setTimeout(()=>{
+				document.querySelector(".chat__inner").innerHTML = `<div class="chat__success"> <p class="chat__success-text">Thank you for getting in touch. We will email you shortly.</p></div>`;
+				document.querySelector(".chat__inner").style.transform = "scale(1)";
+			}, 200);
+			
+		}
+
+
+	}, false);
+
+
+	function clearErrors(){
+		const errors = document.querySelectorAll(".chat__error");
+
+		errors.forEach((error)=>{
+			error.parentNode.removeChild(error);
+		});
+
+	}
+
+	function makeError(inputNumber, message){
+		const input = document.querySelectorAll('label')[inputNumber].children[1];
+		input.style.border = "1px solid tomato";
+		input.insertAdjacentHTML("afterend", `<p class="chat__error">${message}</p>`);
+	}
 
 
 	// if Other is not selected: disable input below
@@ -79,10 +143,12 @@
     		document.querySelector(".chat__input__specify").style.height = "auto";
     		document.querySelector(".chat__input__specify").style.opacity = "1";
     		document.querySelector(".chat__input__specify").style.marginTop = "20px";
+    		supportVerifyis = true;
 		}else{
 			document.querySelector(".chat__input__specify").style.height = "0";
     		document.querySelector(".chat__input__specify").style.opacity = "0";
     		document.querySelector(".chat__input__specify").style.marginTop = "0";
+    		supportVerifyis = false;
 		}
 	}, false);
 </script>

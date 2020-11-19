@@ -157,6 +157,7 @@ body{
 	background-color: #fff;
 	border-radius: 8px;
 	padding: 16px;
+	transition: transform 0.2s;
 }
 .chat__inner span{
 	display: block;
@@ -224,7 +225,35 @@ body{
 .chat__inner .chat__input__specify{
 	margin-top: 0;
 }
-
+.chat__error{
+	color: tomato;
+    font-size: 0.9em;
+    margin-left: 2px;
+    margin-top: 2px;
+}
+.chat__success{
+	height: 400px;
+	position: relative;
+	transition: all 0.4s;
+}
+.chat__success::after{
+	content:"";
+	position: absolute;
+	top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: url(mail.svg);
+    width: 100px;
+    background-position: center;
+    background-size: 100%;
+    height: 100px;
+}
+.chat__success-text{
+	font-weight: bold;
+    text-align: center;
+    line-height: 150%;
+    padding-top: 230px;
+}
 @media (max-width: 670px) {
 	.chat{
 		width: 100%;
