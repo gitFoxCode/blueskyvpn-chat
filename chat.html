@@ -63,10 +63,17 @@
 	function supportOpen(){
 		supportBox.style.display = "flex";
 		supportOpenButton.classList.add("active");
+
+		supportOpenButton.removeEventListener("click", supportOpen);
+		supportOpenButton.addEventListener("click", supportClose, false);
+
 	}
 	function supportClose(){
 		supportBox.style.display = "none";
 		supportOpenButton.classList.remove("active");
+
+		supportOpenButton.removeEventListener("click", supportClose);
+		supportOpenButton.addEventListener("click", supportOpen, false);
 	}
 
 

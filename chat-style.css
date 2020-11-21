@@ -66,12 +66,14 @@ body{
 	padding-left: 33px;
 	padding-right: 15px;
 	color: #fff;
-	font-weight: bold;
 	border-radius: 30px 8px 30px 30px;
 	z-index: 5;
 	cursor: pointer;
 	transition: all 1s;
 	outline: none;
+	font-family: sans-serif !important;
+    font-weight: 600;
+    font-size: 0.9em;
 }
 .chat__button::after{
 	content: "";
@@ -98,7 +100,7 @@ body{
 	flex-direction: column;
 	border-radius: 10px;
 	overflow: hidden;
-	z-index: 1;
+	z-index: 9999999999999;
 	padding-bottom: 10px;
 	position: fixed;
 	right: 50px;
