@@ -87,6 +87,8 @@
 	let validation = true;
 
 	supportSubmit.addEventListener("click", (e)=>{
+
+		/** This line of code causes the form not to be sent further (so as not to refresh the page and display a message about the sending) **/
 		e.preventDefault();
 
 		clearErrors();
@@ -105,8 +107,10 @@
 			validation = false;
 		}
 		if(supportVerifyis){
-			if(supportVerify.value || supportVerify.value.trim().length === 0){
+			if(!supportVerify.value || supportVerify.value.trim().length === 0){
 				makeError(2,"Fill this field");
+				console.log(supportVerify.value);
+				console.log(supportVerify.value.trim().length);
 				validation = false;
 			}
 		}
