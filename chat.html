@@ -142,7 +142,7 @@
 	}
 
 	function makeError(inputNumber, message){
-		const input = document.querySelectorAll('label')[inputNumber].children[1];
+		const input = document.querySelector(".chat__inner").querySelectorAll('label')[inputNumber].children[1];
 		input.style.border = "1px solid tomato";
 		input.insertAdjacentHTML("afterend", `<p class="chat__error">${message}</p>`);
 	}
